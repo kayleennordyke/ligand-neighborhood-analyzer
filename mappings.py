@@ -1,7 +1,28 @@
 """
 Map 3 letter codes to one letter and vice versa, and CPK colors.
 """
-
+amino_set = {
+    "ALA",
+    "ARG",
+    "ASN",
+    "ASP",
+    "CYS",
+    "GLN",
+    "GLU",
+    "GLY",
+    "HIS",
+    "ILE",
+    "LEU",
+    "LYS",
+    "MET",
+    "PHE",
+    "PRO",
+    "SER",
+    "THR",
+    "TRP",
+    "TYR",
+    "VAL"
+ }
 three_to_one = {
     "ALA": "A",
     "ARG": "R",
