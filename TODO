@@ -1,7 +1,7 @@
 # Project TODOs
 
 [X] scaffold project + parse PDB/mmCIF + locate ligand residue(s)
-[ ] compute neighbors (NeighborSearch) + compute min distances
+[X] compute neighbors (NeighborSearch) + compute min distances
 [ ] clean output DataFrame + CSV export + summary printing
 [ ] build CLI (argparse/typer)
 [ ] tests on 1–2 structures + edge cases (ligand not found, multiple ligands)

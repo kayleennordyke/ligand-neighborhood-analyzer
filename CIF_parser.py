@@ -1,8 +1,3 @@
-"""
-Starting code
-"""
-
-import pprint
 import json
 
 from gemmi import cif
@@ -13,8 +8,4 @@ def read_cif(filepath: str):
     """
     doc = cif.read_file(filepath)
     cif_dict = json.loads(doc.as_json())
-    #pprint.pprint(cif_dict)
     return cif_dict
-
-if __name__ == "__main__":
-    read_cif("1a4w.cif")
