@@ -2,7 +2,7 @@
 
 [X] scaffold project + parse PDB/mmCIF + locate ligand residue(s)
 [X] compute neighbors (NeighborSearch) + compute min distances
-[ ] clean output DataFrame + CSV export + summary printing
+[X] clean output DataFrame + CSV export + summary printing
 [ ] build CLI (argparse/typer)
 [ ] tests on 1–2 structures + edge cases (ligand not found, multiple ligands)
 [ ] README + usage examples + nice formatting

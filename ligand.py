@@ -34,7 +34,6 @@ class Structure:
 
     @classmethod
     def from_cif(cls, path):
-        print("RUNNING ligand.py from_cif:", __file__)
 
         res = read_cif(path)
         block = next(iter(res))
@@ -138,3 +137,4 @@ class Structure:
                     neighbors[lkey].append((rkey, distance))
         
         return neighbors
+
