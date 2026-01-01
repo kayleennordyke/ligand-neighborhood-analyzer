@@ -1,8 +1,8 @@
-from CIF_parser import read_cif
+from helpers.CIF_parser import read_cif
 import numpy as np
 import os
-from exceptions import NotALigand
-from mappings import amino_set
+from helpers.exceptions import NotALigand
+from helpers.mappings import amino_set
     
 def create_structure(residue_code):
     """Creates a Ligand from a Residue."""
@@ -68,30 +68,30 @@ class Structure:
     def residues(self):
         # num of unique atoms
         num_atoms = len(self)
-        residues = {}
+        self.residue = {}
 
         for i in range(num_atoms):
             key = (self.name[i], self.chainID[i], self.resnum[i], self.inscode[i])
             if self.name[i] in amino_set:
-                if key not in residues:
-                    residues[key] = []
-                residues[key].append(np.array([self.xcoord[i], self.ycoord[i], self.zcoord[i]]))
+                if key not in self.residue:
+                    self.residue[key] = []
+                self.residue[key].append(np.array([self.xcoord[i], self.ycoord[i], self.zcoord[i]]))
             
-        return residues
+        return self.residue
 
     @property 
     def ligands(self):
         num_atoms = len(self)
-        ligands = {}
+        self.ligand = {}
 
         for i in range(num_atoms):
             key = (self.name[i], self.chainID[i], self.resnum[i], self.inscode[i])
             if (self.name[i] not in amino_set and self.type[i] == 'HETATM' and self.name[i] != 'HOH'):
-                if key not in ligands:
-                    ligands[key] = []
-                ligands[key].append(np.array([self.xcoord[i], self.ycoord[i], self.zcoord[i]]))
+                if key not in self.ligand:
+                    self.ligand[key] = []
+                self.ligand[key].append(np.array([self.xcoord[i], self.ycoord[i], self.zcoord[i]]))
         
-        return ligands
+        return self.ligand
 
     ## TODO, anything that isn't a residue or ligand like h2o or an ion
     def randos(self):
@@ -135,6 +135,6 @@ class Structure:
                     if lkey not in neighbors:
                         neighbors[lkey] = []
                     neighbors[lkey].append((rkey, distance))
+        self.max_distance = max_distance
         
         return neighbors
-
