@@ -1,4 +1,4 @@
-# ligand Neighborhood Analyzer
+# Ligand Neighborhood Analyzer
 
 A python program to find neighboring residues of ligands present in a CIF file. 
 
@@ -17,7 +17,6 @@ This demo visual was created using the structure **1a4w** with a max neighbor di
 - [Usage](#usage)
 - [Acknowledgements](#acknowledgements)
 
-## Requirements
 ## Requirements
 
 - Python ≥ 3.11
@@ -50,13 +49,13 @@ This project consists of **two components**:
 ### Part 1: CSV Generation
 This portion generates a CSV file located in the `results/` directory. The CSV contains **ligands and their neighboring residues** within a user-specified distance and structure.
 
-> Note: Structure CIF files must be located in the `data/' directory. CIF structure files can be obtained from the [RCSB Protein Data Bank](https://www.rcsb.org).
+> Note: Structure CIF files must be located in the `src/ligand_neighborhhod/data/' directory. CIF structure files can be obtained from the [RCSB Protein Data Bank](https://www.rcsb.org).
 
 
 #### Run from terminal:
 
 ```bash
-python main.py --struct `STRUCTURE_ID` --dist `MAX_DISTANCE`
+PYTHONPATH=src python -m ligand_neighborhood.main --struct `STRUCTURE_ID` --dist `MAX_DISTANCE`
 ```
 STRUCTURE_ID: structure identifier CIF file (e.g. `1a4w`)
 

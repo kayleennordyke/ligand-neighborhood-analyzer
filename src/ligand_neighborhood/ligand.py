@@ -1,8 +1,8 @@
-from helpers.CIF_parser import read_cif
+from .helpers.CIF_parser import read_cif
 import numpy as np
 import os
-from helpers.exceptions import NotALigand
-from helpers.mappings import amino_set
+from .helpers.exceptions import NotALigand
+from .helpers.mappings import amino_set
     
 def create_structure(residue_code):
     """Creates a Ligand from a Residue."""

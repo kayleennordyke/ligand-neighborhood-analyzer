@@ -1,5 +1,5 @@
-from ligand import create_structure
-from helpers.save_to_csv import save_to_csv
+from .ligand import create_structure
+from .helpers.save_to_csv import save_to_csv
 import argparse
 
 def main():
@@ -24,8 +24,8 @@ def main():
     )
 
     args = parser.parse_args()
-    input_structure = args.structure
-    max_distance = args.distance
+    input_structure = args.struct
+    max_distance = args.dist
     s = create_structure(input_structure)
     save_to_csv(s.neighbors(max_distance), input_structure)
     return 0
