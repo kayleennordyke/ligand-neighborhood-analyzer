@@ -15,14 +15,7 @@ class Structure:
     def __init__(
             self, type: list, name: list, 
             xcoord: list, ycoord: list , zcoord: list,
-            chainID: list, resnum: list, inscode: list):
-        """
-        Requirements
-        ------------
-        type: list, name: list, 
-        xcoord: list, ycoord: list , zcoord: list,
-        chainID: list, resnum: list, inscode: list
-        """
+            chainID: list, resnum: list):
         self.type = type
         self.name = name
         self.xcoord = xcoord
@@ -30,7 +23,6 @@ class Structure:
         self.zcoord = zcoord
         self.chainID = chainID
         self.resnum = resnum
-        self.inscode = inscode
 
     @classmethod
     def from_cif(cls, path):
@@ -42,7 +34,7 @@ class Structure:
         # ligand?
         type = res['_atom_site.group_pdb']
 
-        # residue name
+        # res name
         name = res['_atom_site.label_comp_id']
 
         # coordinates # in angstroms
@@ -50,16 +42,13 @@ class Structure:
         ycoord = res['_atom_site.cartn_y']
         zcoord = res['_atom_site.cartn_z']
 
-        # chain id
-        chainID = res['_atom_site.label_asym_id']
+        # chain
+        chain = res['_atom_site.auth_asym_id']
 
-        # res num
-        resnum = res['_atom_site.label_seq_id']
+        # res
+        resnum = res['_atom_site.auth_seq_id']
 
-        # insersion code
-        inscode = res['_atom_site.pdbx_pdb_ins_code']
-
-        return Structure(type, name, xcoord, ycoord, zcoord, chainID, resnum, inscode)
+        return Structure(type, name, xcoord, ycoord, zcoord, chain, resnum)
     
     def __len__(self):
         return len(self.type)
@@ -68,37 +57,32 @@ class Structure:
     def residues(self):
         # num of unique atoms
         num_atoms = len(self)
-        self.residue = {}
+        residue = {}
 
         for i in range(num_atoms):
-            key = (self.name[i], self.chainID[i], self.resnum[i], self.inscode[i])
+            key = (self.name[i], self.chainID[i], self.resnum[i])
             if self.name[i] in amino_set:
-                if key not in self.residue:
-                    self.residue[key] = []
-                self.residue[key].append(np.array([self.xcoord[i], self.ycoord[i], self.zcoord[i]]))
+                if key not in residue:
+                    residue[key] = []
+                residue[key].append(np.array([self.xcoord[i], self.ycoord[i], self.zcoord[i]]))
             
-        return self.residue
+        return residue
 
     @property 
     def ligands(self):
         num_atoms = len(self)
-        self.ligand = {}
+        ligand = {}
 
         for i in range(num_atoms):
-            key = (self.name[i], self.chainID[i], self.resnum[i], self.inscode[i])
-            if (self.name[i] not in amino_set and self.type[i] == 'HETATM' and self.name[i] != 'HOH'):
-                if key not in self.ligand:
-                    self.ligand[key] = []
-                self.ligand[key].append(np.array([self.xcoord[i], self.ycoord[i], self.zcoord[i]]))
+            key = (self.name[i], self.chainID[i], self.resnum[i])
+            if (self.name[i] not in amino_set and self.type[i] == 'HETATM' and self.name[i] != 'HOH' and self.name[i] != 'NA'):
+                if key not in ligand:
+                    ligand[key] = []
+                ligand[key].append(np.array([self.xcoord[i], self.ycoord[i], self.zcoord[i]]))
         
-        return self.ligand
+        return ligand
 
-    ## TODO, anything that isn't a residue or ligand like h2o or an ion
-    def randos(self):
-        randos = {}
-        pass
-
-    def calculate_distance(self, coord1, coord2):
+    def _calculate_distance(self, coord1, coord2):
         """
         Calculate the minimum distance between two sets of 3D coordinates.
 
@@ -129,7 +113,7 @@ class Structure:
         # BRUTE FORCE - TODO OPTIMIZE
         for lkey, lvalue in l.items():
             for rkey, rvalue in r.items():
-                distance = self.calculate_distance(lvalue, rvalue)
+                distance = self._calculate_distance(lvalue, rvalue)
                 if distance < max_distance:
                     # then residue is neighbor of ligand
                     if lkey not in neighbors:
