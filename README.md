@@ -49,7 +49,7 @@ This project consists of **two components**:
 ### Part 1: CSV Generation
 This portion generates a CSV file located in the `results/` directory. The CSV contains **ligands and their neighboring residues** within a user-specified distance and structure.
 
-> Note: Structure CIF files must be located in the `src/ligand_neighborhhod/data/' directory. CIF structure files can be obtained from the [RCSB Protein Data Bank](https://www.rcsb.org).
+> Note: Structure CIF files must be located in the `src/ligand_neighborhood/data/' directory. CIF structure files can be obtained from the [RCSB Protein Data Bank](https://www.rcsb.org).
 
 
 #### Run from terminal:
