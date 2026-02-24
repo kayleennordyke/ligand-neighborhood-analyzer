@@ -21,5 +21,4 @@ jobs:
           auto-update-conda: true
 
       - name: Run tests
-        run: make test
-        shell: bash
+        run: conda run -n ligand-neighbor-analyzer make test
